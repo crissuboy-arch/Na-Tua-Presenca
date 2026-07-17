@@ -1,8 +1,3 @@
-from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-from fastapi.middleware.cors import CORSMiddleware
-from app.database import engine, Base
-from app.routers import auth_router, devotional_router, journal_router, prayer_router, progress_router, chatbot_router
 import os
 
 for dotenv in [".env", "../.env"]:
@@ -14,6 +9,12 @@ for dotenv in [".env", "../.env"]:
                 if line and not line.startswith("#") and "=" in line:
                     k, v = line.split("=", 1)
                     os.environ.setdefault(k.strip(), v.strip())
+
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
+from app.database import engine, Base
+from app.routers import auth_router, devotional_router, journal_router, prayer_router, progress_router, chatbot_router
 
 Base.metadata.create_all(bind=engine)
 

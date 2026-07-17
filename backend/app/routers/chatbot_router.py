@@ -9,8 +9,10 @@ import httpx
 
 router = APIRouter(prefix="/api/chatbot", tags=["chatbot"])
 
-NVIDIA_API_KEY = os.getenv("NVIDIA_API_KEY")
 NVIDIA_URL = "https://integrate.api.nvidia.com/v1/chat/completions"
+
+def get_nvidia_key():
+    return os.getenv("NVIDIA_API_KEY")
 
 class ChatRequest(BaseModel):
     message: str
@@ -36,7 +38,8 @@ Se nao souber responder, diga que vai orar e recomendar a leitura da Biblia."""
 async def chat(req: ChatRequest, current_user: User = Depends(get_current_user)):
     message = req.message
     history = req.history
-    if not NVIDIA_API_KEY:
+    nvidia_key = get_nvidia_key()
+    if not nvidia_key:
         return {"response": "Olá! Sou o assistente do Na Tua Presença. No momento estou em modo básico. Para respostas completas, ativa a chave NVIDIA_API_KEY no servidor. Como posso ajudar?"}
 
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
@@ -55,7 +58,7 @@ async def chat(req: ChatRequest, current_user: User = Depends(get_current_user))
         async with httpx.AsyncClient(timeout=60) as client:
             resp = await client.post(
                 NVIDIA_URL,
-                headers={"Authorization": f"Bearer {NVIDIA_API_KEY}", "Content-Type": "application/json"},
+                headers={"Authorization": f"Bearer {nvidia_key}", "Content-Type": "application/json"},
                 json={
                     "model": "meta/llama-3.1-70b-instruct",
                     "messages": messages,
