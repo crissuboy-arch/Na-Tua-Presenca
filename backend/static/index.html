@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Na Tua Presenca - 365 Dias com Deus | Devocional Diario</title>
+  <meta name="description" content="365 dias com Deus. Uma jornada espiritual com reflexoes diarias, oracoes e versiculos biblicos. Comeca hoje a tua caminhada na presenca de Deus.">
+  <meta name="keywords" content="devocional, deus, fe, bible, jesus, oracao, reflexao, 365 dias, espiritual">
+  <meta name="author" content="Na Tua Presenca">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Na Tua Presenca - 365 Dias com Deus">
+  <meta property="og:description" content="Uma jornada espiritual com reflexoes diarias, oracoes e versiculos biblicos.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#1a1f36">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/icons/icon-192.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icons/icon-192.svg">
+  <!-- Preconnect to NVIDIA API for chatbot -->
+  <link rel="preconnect" href="https://integrate.api.nvidia.com">
+</head>
+<body>
+  <!-- Skip Navigation -->
+  <a href="#main-content" class="skip-nav">Saltar para o conteudo</a>
+
+  <!-- Sidebar Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay" onclick="closeSidebar()" aria-hidden="true"></div>
+
+  <!-- Auth Page -->
+  <div id="auth-page" class="auth-page" role="main" aria-label="Pagina de autenticacao">
+    <div class="auth-card">
+      <div class="auth-logo" aria-hidden="true">&#x1F54A;</div>
+      <h1 id="auth-title">Criar Conta</h1>
+      <p class="auth-subtitle">365 dias com Deus</p>
+      <div id="auth-error" class="error-message" role="alert" style="display:none"></div>
+
+      <form id="register-form" onsubmit="handleRegister(event)" autocomplete="off" novalidate>
+        <div class="form-group">
+          <label for="reg-name">Nome</label>
+          <input type="text" id="reg-name" required placeholder="O teu nome" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="reg-email">Email</label>
+          <input type="email" id="reg-email" required placeholder="teu@email.com" autocomplete="off" inputmode="email">
+        </div>
+        <div class="form-group">
+          <label for="reg-password">Password</label>
+          <input type="password" id="reg-password" required minlength="4" placeholder="Minimo 4 caracteres" autocomplete="new-password">
+        </div>
+        <button type="submit" id="reg-btn" class="btn btn-primary btn-full">Criar Conta</button>
+        <p class="auth-link">Ja tens conta? <a href="#" onclick="showLogin();return false" aria-label="Entrar na conta">Entrar</a></p>
+      </form>
+
+      <form id="login-form" style="display:none" onsubmit="handleLogin(event)" autocomplete="off" novalidate>
+        <div class="form-group">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" required placeholder="teu@email.com" autocomplete="off" inputmode="email">
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" required placeholder="A tua password" autocomplete="off">
+        </div>
+        <button type="submit" id="login-btn" class="btn btn-primary btn-full">Entrar</button>
+        <p class="auth-link">Ainda nao tens conta? <a href="#" onclick="showRegister();return false" aria-label="Criar nova conta">Criar Conta</a></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- App Container -->
+  <div id="app-container" class="app-container" role="application">
+    <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Abrir menu" aria-expanded="false">
+      <span class="menu-icon" aria-hidden="true">&#9776;</span>
+    </button>
+
+    <!-- Sidebar -->
+    <aside id="sidebar" class="sidebar" role="navigation" aria-label="Navegacao principal">
+      <div class="sidebar-header">
+        <div class="sidebar-logo" aria-hidden="true">&#x1F54A;</div>
+        <h2 class="sidebar-title">Na Tua Presenca</h2>
+        <p class="sidebar-subtitle">365 dias com Deus</p>
+      </div>
+      <nav class="sidebar-nav" aria-label="Menu principal">
+        <button class="nav-item active" data-view="today" onclick="navigate('today')" aria-current="page">
+          <span class="nav-icon" aria-hidden="true">&#x1F4D6;</span> Hoje
+        </button>
+        <button class="nav-item" data-view="calendar" onclick="navigate('calendar')">
+          <span class="nav-icon" aria-hidden="true">&#x1F4C5;</span> Calendario
+        </button>
+        <button class="nav-item" data-view="read" onclick="navigate('read')">
+          <span class="nav-icon" aria-hidden="true">&#x1F4DA;</span> Ler
+        </button>
+        <button class="nav-item" data-view="journal" onclick="navigate('journal')">
+          <span class="nav-icon" aria-hidden="true">&#x1F4DD;</span> Diario
+        </button>
+        <button class="nav-item" data-view="prayers" onclick="navigate('prayers')">
+          <span class="nav-icon" aria-hidden="true">&#x1F64F;</span> Oracao
+        </button>
+        <button class="nav-item" data-view="chatbot" onclick="navigate('chatbot')">
+          <span class="nav-icon" aria-hidden="true">&#x1F4AC;</span> Chat
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div id="user-avatar" class="user-avatar" aria-hidden="true"></div>
+          <div>
+            <div id="user-name" class="user-name"></div>
+            <div id="user-email" class="user-email"></div>
+          </div>
+        </div>
+        <button class="btn btn-secondary sidebar-logout" onclick="handleLogout()">Sair</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content">
+      <div id="page-header" class="page-header">
+        <h1>Carregando...</h1>
+      </div>
+      <div id="page-content" class="page-content">
+        <div class="loading" role="status" aria-label="A carregar">
+          <div class="spinner" aria-hidden="true"></div>
+          <p>A carregar...</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "Na Tua Presenca",
+  "short_name": "NTP",
+  "description": "365 dias com Deus",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf6f0",
+  "theme_color": "#1a1f36",
+  "icons": [
+    { "src": "/icons/icon-192.svg", "sizes": "192x192", "type": "image/svg+xml" },
+    { "src": "/icons/icon-512.svg", "sizes": "512x512", "type": "image/svg+xml" }
+  ]
+}
