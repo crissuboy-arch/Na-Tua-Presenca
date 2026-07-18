@@ -474,7 +474,7 @@ async function sendChat() {
 
   try {
     const history = state.chatHistory.slice(-10).map(h => h.user + ":::" + h.bot).join("|||");
-    const data = await apiCall("/chatbot/chat?message=" + encodeURIComponent(msg) + "&history=" + encodeURIComponent(history));
+    const data = await apiCall("/chatbot/chat", { method: "POST", body: JSON.stringify({ message: msg, history }) });
 
     document.getElementById("chat-typing")?.remove();
 
